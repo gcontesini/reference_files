@@ -1,0 +1,4 @@
+2025-09-30 10:40:24 | main | INFO | Starting main function
+2025-09-30 10:40:24 | main | DEBUG | Debugging details here
+2025-09-30 10:40:24 | main | ERROR | An error occurred
+2025-09-30 10:40:24 | helper | INFO | Helper function running
