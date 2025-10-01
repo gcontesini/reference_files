@@ -6,14 +6,9 @@ import logging as logging
 import pathlib as pathlib
 # ==============================================================================
 class LoggerFactory:
-  
+
   _loggers = {}
 
-  # def __init__( self ):
-  #   _module_name = self.__class__.__module__
-  #   _module = sys.modules[ _module_name ]
-  #   self._logfile = f"{_module.__file__}.log"
-  
   @classmethod
   def configure(cls):
     _var_log = "./var/log/logfile"
@@ -22,7 +17,7 @@ class LoggerFactory:
     cls._logfile = _logfile
 
   @classmethod
-  def get_logger( cls, name_: str = None) -> logging.Logger:
+  def get_logger( cls, name_ = None) -> logging.Logger:
     """
     Returns a configured logger. 
     """

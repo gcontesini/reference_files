@@ -1,4 +1,4 @@
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC Alias
+# ============================================================================== Alias
 alias l='ls -gohtX --color=auto'
 alias k='ls -gohtX --color=auto'
 alias ll='ls -l --color=auto'
@@ -38,19 +38,19 @@ alias start-docker='sudo systemctl start docker'
 alias fake-update='docker run --rm -it bcbcarl/hollywood'
 alias activate='source venv/bin/activate'
 
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC GIT
+# ==============================================================================  GIT
 
 alias gittree="git log --all --graph --decorate --pretty=format:'%C(bold blue)%h%C(reset) -%C(bold green)[%cr]%C(reset) - %C(bold red)<%an>%C(reset) -%C(bold yellow)%d%C(reset) %C(bold white)%s%C(reset)'"
 alias gitdiff="git diff --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'"
 alias gitbranches="git log --all --graph --decorate=short --pretty=format:'%C(bold blue)%h%C(reset) %C(bold yellow)%d%C(reset) %C(white)%s%C(reset)'"
 
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC SSH
+# ==============================================================================  SSH
 
 alias x11vnc_create_pwd="mkdir -p .opt; x11vnc -storepasswd password .opt/.x11vnc_pwd"
 alias x11vnc_run="x11vnc -rfbauth .opt/.x11vnc_pwd"
 alias connect_krueger="ssh -X contesini@134.117.64.164"
 
-# CCC`CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC Reference cmds
+# ============================================================================== Reference cmds
 
 # List all connect hard dev
 # sudo fdisk -l
@@ -77,13 +77,13 @@ alias connect_krueger="ssh -X contesini@134.117.64.164"
 # Force loading pendrive
 # sudo mount -o uid=$(id -u),gid=$(id -g) /dev/sdc1 /media/usbdrive
 
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC BEHAVIOR
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PS-Pager
+# ============================================================================== BEHAVIOR
+# ============================================================================== PS-Pager
 export PSQL_PAGER="pspg"
 alias psql="PAGER= pspg psql"
 # export PAGER="pspg"
 export PSQL_EDITOR="/usr/bin/code"
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Bash
+# ============================================================================== Bash
 export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth
 export EDITOR=code
@@ -94,7 +94,7 @@ shopt -s checkwinsize
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC Python venv
+# ============================================================================== Python venv
 
 # whereis python | tr ' ' '\n' | grep ^/ | sort
 
@@ -103,9 +103,8 @@ fi
 # pip freeze > requirements.txt
 # python3 -m pip install -r requirements.txt
 
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC Functions
+# ============================================================================== Functions
 function install_me () {
-  
   sudo aptitude install -y \
     htop \
     git \
@@ -153,35 +152,29 @@ function install_me () {
 #    fabric\
 #    autokey-gtk
 
-    # sudo aptitude install nodejs node-npm node-yarn node-react
-    python3 -m pip install --upgrade pip
+#   N8n
+#   schema
+#   Twingate
+#   Pytoolz
+#   python-tabulate
+#   rich 
+#   hypothesis
+#   Ollama CLI-LMM
+#   Vscode
+#   Java
+#   sublime-merge
+#   Typora
+#   Brave browser
+#   BlueJ
 
-    Look into:
-    # N8n
-    # schema
-    # Twingate
-    # Pytoolz
-    # python-tabulate
-    # rich 
-    # hypothesis
-
-    pip3 install imageio ipython matplotlib numpy pandas scipy seaborn yt-dlp
-
-    # Ollama CLI-LMM
-    # Vscode
-    # Java
-    # sublime-merge
-    # Typora
-    # Brave browser
-    # BlueJ
-    # 
 }
-#----------------------------------------------------------- Count files by type
+# ============================================================================== Count files by type
 function count_files_by_type () {
   for dir in $(find . -type d); do
     echo -e "$dir - $(find "$dir" -type f -name "*.$1" | wc -l) "
   done
 }
+# ============================================================================== References
 function reference_colors_PS1 () {
   echo -e " Color	\t Code (Light)  \t Code (Dark)"
   echo -e "\e[00m White	\t\e[00m e[00m  "
@@ -214,7 +207,7 @@ function reference_colors () {
   echo -e "Light Grey: \t #666666"
   echo -e "White: \t\t #cccccc"
 }
-#---------------------------------------------------------------- List of Errors 
+
 function reference_error () {
   echo "0 - Success"
   echo "1 - General error"
@@ -254,7 +247,7 @@ function reference_error () {
   echo "# Run second command only if first fails"
   echo "command1 || command2"
 }
-#---------------------------------------------------------------- Unzip any file
+# ============================================================================== Unzip any file
 function untar () {
   if [ -f $1 ] ; then
       case $1 in
@@ -276,7 +269,7 @@ function untar () {
       echo "'$1' My name is Error !!"
   fi
 }
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ============================================================================== Blue Screen
 function blue_screen() {
   # Save current terminal settings
   tput civis        # Hide cursor
@@ -292,19 +285,19 @@ function blue_screen() {
   tput clear        # Clear screen again
   tput cnorm        # Show cursor
 }
-#--------------------------------------------------------------------- LOWERCASE
+# ============================================================================== LOWERCASE
 function lowercase () {
   for i in $1; do
     mv "$i" "$(echo "$i" | tr '[A-Z]' '[a-z]')";
   done
 }
-#--------------------------------------------------------------------- uppercase
+# ============================================================================== uppercase
 function uppercase () {
   for i in $1; do
     mv "$i" "$(echo "$i" | tr '[A-Z]' '[a-z]')";
   done
 }
-#------------------------------------------------------------- multiple download
+# ============================================================================== multiple download
 function multiple_download () {
   # Check if a file is provided as an argument
   if [ $# -ne 1 ]; then
@@ -327,7 +320,7 @@ function multiple_download () {
     fi
   done < "$file"
 }
-#----------------------------------------------------------------- Show net info
+# ============================================================================== Show net info
 function netinfo () {
   echo "--------------- Network Information ---------------"
   /sbin/ifconfig | awk /'inet addr/ {print $2}'
@@ -338,7 +331,7 @@ function netinfo () {
   echo "${myip}"
   echo "---------------------------------------------------"
 }
-#----------------------------------------------------- List all Bashrc functions
+# ============================================================================== List all Bashrc functions
 function list_functions () {
   # Check if .bashrc exists
   if [ ! -f ~/.bashrc ]; then
@@ -349,7 +342,7 @@ function list_functions () {
   # List all functions in .bashrc
   grep -E '^[[:space:]]*([[:alnum:]_]+[[:space:]]*\(\)|function[[:space:]]+[[:alnum:]_]+)' ~/.bashrc | awk '{print $1}'
 }
-#--------------------------------------------------------------- Well Spent Time
+# ============================================================================== Well Spent Time
 function command_not_found_handle () {
 
   local INSULTS=(
@@ -466,7 +459,7 @@ function command_not_found_handle () {
 
   return 127
 }
-#-------------------------------------------------------------- Monitor Backdoor
+# ============================================================================== Monitor Backdoor
 function monitor-backdoor( ) {
   # ref: NetworkChuck
 
@@ -483,7 +476,7 @@ function monitor-backdoor( ) {
   # Or using ss (more modern)
   ss -tunp | grep $1
 }
-#---------------------------------------------------------------- Repeat Command
+# ============================================================================== Repeat Command
 function repeat(){
   local i max
   max=$1; shift;
@@ -491,11 +484,11 @@ function repeat(){
     eval "$@" > '$@_'$i'.txt';
   done
 }
-#-------------------------------------------------------------------  Random PWD
+# ============================================================================== Random PWD
 function genpwd(){
   tr -dc A-Za-z0-9 < /dev/urandom | head -c ${1:-15} | xargs
 }
-#------------------------------------------------------------------------ Backup
+# ============================================================================== Backup
 
 function backup_vscode () {
   cp "$VSCODE_USER_DIR/settings.json" "$BACKUP_DIR/"
@@ -568,7 +561,7 @@ function backup_menu() {
 function backup(){
   backup_menu
 }
-#--------------------------------------------------------------------------- TAR
+# ============================================================================== TAR
 function tarfile(){
   name_aux=$1;
   user_name=$(whoami);
@@ -586,7 +579,7 @@ function tarfile(){
   clear
   echo "Backup done"
 }
-#------------------------------------------------------------------- Backup_Home
+# ============================================================================== Backup_Home
 function backup_home(){
   VSCODE_USER_DIR = "$HOME/.config/Code/User"
   BACKUP_DIR = "$HOME/backup"
@@ -599,7 +592,7 @@ function backup_home(){
   echo "/home/$USER is now safe at /media/$USER/HDCONTESINI/xBackup/";
   echo
 }
-#------------------------------------------------------------------------ New DF
+# ============================================================================== New DF
 function mydf(){
   for fs ; do
     if [ ! -d $fs ]
@@ -622,7 +615,7 @@ function mydf(){
   out=${info[2]}" "$out"] ( / : Free: "$free" | Used:"$used" )"
   echo $out
 }
-#------------------------------------------------------------------ Initial Info
+# ============================================================================== Initial Info
 function myinfo() {  # Get current host related info.{
   echo -e "\e[1;90m-----------------------------------------------------------------Logged on:$NC"
   echo -e "\e[1;32m"'Machine:\t'$(hostname)
@@ -640,12 +633,12 @@ function myinfo() {  # Get current host related info.{
   free -h | awk '{if(NR==1 || NR==3)print $0}'
 
 }
-#--------------------------------------------------------------------- Functions
+# ============================================================================== Functions
 function parse_git_branch() {
   echo "\e[1;36m"`
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'`
 }
-#--------------------------------------------------------------------------- PS1
+# ============================================================================== PS1
 PROMPT_COMMAND='''
 PS1="\[$(tput sgr0)\]
 \e[0;32m ↈ  \u@\h - \D{[%d/%m/%y] - %A - %H:%M:%S} ↈ
@@ -657,35 +650,15 @@ else
   echo -e "\\[\\e[31m\\]";
 fi\` \w : \[\e[00m\]"
 '''
-
 # ==============================================================================
-# == CONFIG FILES
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC PSQLRC
 
-# \set PROMPT1 '%M:%> %n@%/%R%#%x '
-# \set ON_ERROR_ROLLBACK interactive
-# \set COMP_KEYWORD_CASE upper
-# \set HISTFILE ~/.psql/history- :DBNAME
-# q\setenv PSPG_THEME 0
-# \pset pager always
-# \pset null '(null)'
-
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC LESS CONFIG
-
-# less syntax highlighting + source-highlight installation
-# export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-# export LESS=' -PY'
-
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC PSQLRC
-
+less syntax highlighting + source-highlight installation
+export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+export LESS=' -PY'
+# ==============================================================================
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/contesini/.lmstudio/bin"
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC FIJI-Plugins
-
-
-
-# CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC END
+# ==============================================================================  END
