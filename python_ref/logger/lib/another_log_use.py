@@ -1,14 +1,16 @@
 import lib as lib 
 # ==============================================================================
-lib.log.LoggerFactory.configure()
-log = lib.log.LoggerFactory.get_logger()
-# ==============================================================================
 def helper():
+  log = lib.log.LoggerFactory.get_logger( )
   
-/*************  ✨ Windsurf Command ⭐  *************/
-/*******  472fb903-1883-447e-9c23-759403212ba5  *******/
-  log.info("Helper function running")
+  log.debug("This is a DEBUG message")
+  log.info("This is an INFO message")
+  log.warning("This is a WARNING message")
+  log.error("This is an ERROR message")
+  log.critical("This is a CRITICAL message")
 
 # ==============================================================================
 if __name__ == "__main__":
+  lib.log.LoggerFactory.configure()
   helper()
+

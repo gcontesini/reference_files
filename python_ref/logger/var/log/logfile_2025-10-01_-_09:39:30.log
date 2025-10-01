@@ -1,0 +1,10 @@
+2025-10-01 09:39:30 | main.21 | INFO | This is an INFO message
+2025-10-01 09:39:30 | main.22 | DEBUG | This is a DEBUG message
+2025-10-01 09:39:30 | main.23 | WARNING | This is a WARNING message
+2025-10-01 09:39:30 | main.24 | ERROR | This is an ERROR message
+2025-10-01 09:39:30 | main.25 | CRITICAL | This is a CRITICAL message
+2025-10-01 09:39:30 | helper.6 | DEBUG | This is a DEBUG message
+2025-10-01 09:39:30 | helper.7 | INFO | This is an INFO message
+2025-10-01 09:39:30 | helper.8 | WARNING | This is a WARNING message
+2025-10-01 09:39:30 | helper.9 | ERROR | This is an ERROR message
+2025-10-01 09:39:30 | helper.10 | CRITICAL | This is a CRITICAL message
