@@ -56,9 +56,9 @@ If Fail:
 -   [Box Cox](##Transformations)
 -   Non-parametric tests
 
-<img src="./x1_statistics/images/Normprob.png" alt="Normprob" style="zoom: 33%;" /> <img src="./x1_statistics/images/Normexpprob.png" alt="Normexpprob" style="zoom: 33%;" /> <img src="./x1_statistics/images/Normunifprob.png" alt="Normunifprob" style="zoom: 33%;" />
+<img src="./x1_mathematics/x1_statistics/images/Normprob.png" alt="Normprob" style="zoom: 33%;" /> <img src="./x1_mathematics/x1_statistics/images/Normexpprob.png" alt="Normexpprob" style="zoom: 33%;" /> <img src="./x1_mathematics/x1_statistics/images/Normunifprob.png" alt="Normunifprob" style="zoom: 33%;" />
 
-<img src="./x1_statistics/images/Normhist.png" alt="Normhist" style="zoom:33%;" /> <img src="./x1_statistics/images/Normexphist.png" alt="Normexphist" style="zoom:33%;" /> <img src="./x1_statistics/images/Normunifhist.png" alt="Normunifhist" style="zoom:33%;" />
+<img src="./x1_mathematics/x1_statistics/images/Normhist.png" alt="Normhist" style="zoom:33%;" /> <img src="./x1_mathematics/x1_statistics/images/Normexphist.png" alt="Normexphist" style="zoom:33%;" /> <img src="./x1_mathematics/x1_statistics/images/Normunifhist.png" alt="Normunifhist" style="zoom:33%;" />
 
 #### Independence of samples
 
@@ -82,7 +82,7 @@ if Fail:
 
 -   [Box-Cox](##Transformations)
 
-<img src="./x1_statistics/images/Homoscedasticity.png" alt="Homoscedasticity" style="zoom: 75%;" /><img src="./x1_statistics/images/Heteroscedasticity.png" alt="Heteroscedasticity" style="zoom: 75%;" />
+<img src="./x1_mathematics/x1_statistics/images/Homoscedasticity.png" alt="Homoscedasticity" style="zoom: 75%;" /><img src="./x1_mathematics/x1_statistics/images/Heteroscedasticity.png" alt="Heteroscedasticity" style="zoom: 75%;" />
 
 
 
@@ -105,8 +105,6 @@ if Fail:
 
 [^b ]: Used for when the distributions have multiple multiple dependable variables.
 [^c]: Used to counteract the effects of multiples independent variables within the distribution.
-
-
 
 ### Variance
 
@@ -226,7 +224,7 @@ $P(|X-\mu|\geq k\sigma) \leq\frac{1}{k^2}$
 | q-q plot | plotting their quantiles against each other.                 |
 | p-p plot | plots the two cumulative distribution functions (cdf) against each other |
 
-<img src="./x1_statistics/images/Normal_normal_qq.svg" alt="Normal_normal_qq" style="zoom: 90%;" /><img src="./x1_statistics/images/Normal_exponential_qq.svg" alt="Normal_exponential_qq" style="zoom: 90%;" />  <img src="./x1_statistics/images/1440px-Probability-Probability_plot,_quality_characteristic_data.png" alt="Normal_normal_qq" style="zoom: 25%;" />
+<img src="./x1_mathematics/x1_statistics/images/Normal_normal_qq.svg" alt="Normal_normal_qq" style="zoom: 90%;" /><img src="./x1_mathematics/x1_statistics/images/Normal_exponential_qq.svg" alt="Normal_exponential_qq" style="zoom: 90%;" />  <img src="./x1_mathematics/x1_statistics/images/1440px-Probability-Probability_plot,_quality_characteristic_data.png" alt="Normal_normal_qq" style="zoom: 25%;" />
 
 | <u>Analytical</u> | Meaning |
 | -------------- | ---- |
@@ -401,108 +399,226 @@ Bayesian
 | **Accuracy**           | False discovery rate                        | Negative predictive value                                    | Markedness (MK),                                   | Diagnostic odds ratio                           |
 | **Balanced accuracy**  | F1                                          | Fowlkes–Mallows index                                        | Matthews correlation coef.                         | Threat score (TS), critical success index (CSI) |
 
-```dockerfile
-FROM alipine
+---
 
-CMD ["python",]
-```
-
-
-
-**Total population**
-
-The entire group of individuals, items, or data points that you want to study
+###  Total population
+The entire group of individuals, items, or data points that you want to study.
 $$
 n = P + N
 $$
-**True positive rate (TPR) / Recall / Sensitivity / Power** 
 
+Where $P$ is the total number of positive cases and $N$ the total number of negative cases. This forms the basis for classification performance evaluation by defining the total dataset size.
 
+***
+
+###  True positive rate (TPR) / Recall / Sensitivity / Power
+Measures the proportion of actual positives correctly identified. It reflects the ability to detect positive cases. High sensitivity means fewer misses.
 $$
-\text{Power} = 1-\beta  = \frac{FP}{N}
+\text{Power} = 1-\beta = \frac{TP}{P}
 $$
-**True negative rate (TNR) / Selectivity / Specificity**
+
+Typical application: Important in medical tests where missing a positive case (false negative) can have serious consequences.
+
+***
+
+###  True negative rate (TNR) / Selectivity / Specificity
+Measures the proportion of actual negatives correctly identified. It indicates ability to correctly exclude negative cases.
 $$
-\text{Specificity} = \frac{FN}{ P}
+\text{Specificity} = \frac{TN}{N}
 $$
-**False negative rate (FNR) / Miss rate / Type II Error** 
+
+Typical application: Crucial when false positives are costly, e.g., in diagnostic screening to avoid unnecessary treatments.
+
+***
+
+###  False negative rate (FNR) / Miss rate / Type II Error
+Proportion of positives incorrectly classified as negatives. Represents the rate of missed positive cases.
 $$
 \beta= \frac{FN}{P}
 $$
-**False positive rate (FPR) / Fall-out / Type I Error**
+
+Application: Used to evaluate risk in applications where failing to detect positives is critical.
+
+***
+
+###  False positive rate (FPR) / Fall-out / Type I Error
+Proportion of negatives incorrectly classified as positives. Reflects the rate of false alarms.
 $$
-\alpha = \frac{FP}{N} = 1 - FPR
+\alpha = \frac{FP}{N}
 $$
-**Informedness / Bookmaker informedness (BM)**
+
+Application: Important when false alarms lead to costly follow-ups or psychological impacts.
+
+***
+
+###  Informedness / Bookmaker informedness (BM)
+Measures the probability of an informed decision versus random guessing, combining sensitivity and specificity.
 $$
 BM = TPR + TNR − 1
 $$
-**Prevalence threshold (PT)**
+
+Interpretation: Values range $[-1,1]$; 0 means no better than chance; 1 is perfect prediction.
+
+***
+
+###  Prevalence threshold (PT)
+The probability threshold at which the expected benefit of classifying positives equals classifying negatives.
 $$
 PT = \frac{\sqrt{(TPR × FPR)} - FPR }{TPR - FPR}
 $$
-**Prevalence**
+
+Used to select optimal decision threshold in classification.
+
+***
+
+###  Prevalence
+The proportion of positives within the total population.
 $$
-PRV= \frac{P}{P+N}
+PRV = \frac{P}{P+N}
 $$
-**Positive predictive value (PPV) / Precision**
+
+Indicates class imbalance, which influences interpretation of metrics.
+
+***
+
+###  Positive predictive value (PPV) / Precision
+Proportion of predicted positives that are actual positives. Measures accuracy of positive predictions.
 $$
 \text{precision} = \frac{TP}{TP+FP}
 $$
-**False omission rate (FOR)**
+
+Important when the cost of false positives matters, e.g., in information retrieval.
+
+***
+
+###  False omission rate (FOR)
+Proportion of predicted negatives that are actually positives.
 $$
 FOR = \frac{FN}{TN+FN}
 $$
-**Positive likelihood ratio (LR+)**
+
+Used to assess the risk associated with negative predictions.
+
+***
+
+###  Positive likelihood ratio (LR+)
+Ratio of true positive rate to false positive rate; how much the odds of being positive increase when test is positive.
 $$
 LR+ = \frac{TPR}{FPR}
 $$
-**Negative likelihood ratio (LR-)**
+
+Used in diagnostic testing to weigh evidence.
+
+***
+
+###  Negative likelihood ratio (LR-)
+Ratio of false negative rate to true negative rate; how much the odds of being positive decrease when test is negative.
 $$
-LR− = \frac{FNR}{ TNR}
+LR− = \frac{FNR}{TNR}
 $$
-**Accuracy (ACC)**
+
+Also used in diagnostics to assess test effectiveness.
+
+***
+
+###  Accuracy (ACC)
+Proportion of total correct predictions (both positive and negative).
 $$
-\text{ACC} =\frac{TP + TN}{P + N}
+\text{ACC} = \frac{TP + TN}{P + N}
 $$
-**False discovery rate (FDR)**
+
+Widely used but can be misleading with imbalanced datasets.
+
+***
+
+###  False discovery rate (FDR)
+Proportion of predicted positives that are false positives.
 $$
-FDR = \frac{FP}{PP}
+FDR = \frac{FP}{TP + FP}
 $$
-**Negative predictive value (NPV)**
+
+Important in multiple hypothesis testing and controlling false positives.
+
+***
+
+###  Negative predictive value (NPV)
+Proportion of predicted negatives that are actual negatives.
 $$
-NPV = \frac{TN}{PN}
+NPV = \frac{TN}{TN+FN}
 $$
-**Markedness (MK) / $\Delta$P**
+
+Measures reliability of negative predictions.
+
+***
+
+###  Markedness (MK) / $\Delta P$
+Reflects the strength of association between predictions and outcomes by combining PPV and NPV.
 $$
-Δp = PPV + NPV − 1
+\Delta p = PPV + NPV − 1
 $$
-**Diagnostic odds ratio (DOR)**
+
+Ranges from $-1$ (worst) to $1$ (best); $0$ means no predictive power.
+
+***
+
+###  Diagnostic odds ratio (DOR)
+Ratio of positive to negative likelihood ratios; overall test effectiveness.
 $$
 DOR = \frac{LR+}{ LR−}
 $$
-**Balanced accuracy (BA)**
+
+Higher values indicate better discriminatory test performance.
+
+***
+
+###  Balanced accuracy (BA)
+Average of sensitivity and specificity, compensating for imbalanced classes.
 $$
-(BA) = \frac{(TPR + TNR)}{2}
+BA = \frac{TPR + TNR}{2}
 $$
-**F1 score**
+
+Preferred metric when classes are imbalanced.
+
+***
+
+###  F1 score
+Harmonic mean of precision and recall. Balances false positives and false negatives.
 $$
 \text{F1 score} = \frac{2 TP}{2 TP + FP + FN}
 $$
-or the Harmonic average of the precision with the recal.
 
-**Fowlkes–Mallows index (FM)**
+Common in information retrieval and classification to balance precision and recall.
+
+***
+
+### Fowlkes–Mallows index (FM)
+Geometric mean of precision and recall.
 $$
-FM = \sqrt{PPV × TPR}
+FM = \sqrt{PPV \times TPR}
 $$
-**Matthews correlation coefficient (MCC)**
+
+Used in clustering and classification to assess balance between precision and recall.
+
+***
+
+### Matthews correlation coefficient (MCC)
+Correlation coefficient between observed and predicted binary classifications.
 $$
-\text{Matw.} = \sqrt{TPR\times TNR\times PPV \times NPV}
+\text{MCC} = \frac{ TP \times TN - FP \times FN } {\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}
 $$
-**Threat score (TS) / Critical success index (CSI) / Jaccard index**
+
+Ranges from -1 (total disagreement) to +1 (perfect prediction), robust for imbalanced data.
+
+***
+
+### Threat score (TS) / Critical success index (CSI) / Jaccard index
+Measures overlap between predicted and actual positives, ignoring true negatives.
 $$
 \text{Jaccard index} = \frac{TP}{TP + FN + FP}
 $$
+
+Common in meteorology and image segmentation to evaluate event detection accuracy.
+
 **Notes:**
 
 [^a]: the number of real positive cases in the data
