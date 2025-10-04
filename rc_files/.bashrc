@@ -48,7 +48,9 @@ alias gitbranches="git log --all --graph --decorate=short --pretty=format:'%C(bo
 
 alias x11vnc_create_pwd="mkdir -p .opt; x11vnc -storepasswd password .opt/.x11vnc_pwd"
 alias x11vnc_run="x11vnc -rfbauth .opt/.x11vnc_pwd"
-alias connect_krueger="ssh -X contesini@134.117.64.164"
+alias mount_krueger="sshfs contesini@134.117.64.164:/home/contesini ~x3_kueger/"
+alias unmount_krueger="umount ~x3_kueger/"
+alias mount_mrhyde="sshfs contesini@134.117.64.164:/home/contesini x3_kueger/"
 
 # ============================================================================== Reference cmds
 
@@ -652,9 +654,9 @@ fi\` \w : \[\e[00m\]"
 '''
 # ==============================================================================
 
-less syntax highlighting + source-highlight installation
-export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-export LESS=' -PY'
+# less syntax highlighting + source-highlight installation
+# export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+# export LESS=' -PY'
 # ==============================================================================
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/contesini/.lmstudio/bin"

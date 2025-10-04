@@ -26,7 +26,6 @@ class LoggerFactory:
     cls._console_level = level_
     cls._configured = True
 
-
   @classmethod
   def get_logger( cls, name_ = None ) -> logging.Logger:
     """
@@ -40,56 +39,59 @@ class LoggerFactory:
       filepath = pathlib.Path( frame.f_code.co_filename )
       name_ = filepath.stem
 
-    # - Skip if logger already exists
+    # - Return existing logger if already configured
+    # NOTE: We check the actual logging module's logger registry
+    # to ensure each module gets its own logger instance
     if name_ in cls._loggers:
       return cls._loggers[ name_ ]
 
+    # - Create a new logger with the specific name
     logger = logging.getLogger( name_ )
     logger.setLevel( logging.DEBUG )
+    
+    # - Clear any existing handlers to avoid duplicates
+    logger.handlers.clear()
 
-    # - Skip if handlers already exist
-    if not logger.handlers:
-      log_path = pathlib.Path(cls._logfile)
-      
-      # - Create log directory
-      if not log_path.parent.exists():
-        try:
-          os.makedirs(log_path.parent, exist_ok=True)
-        except PermissionError:
-          print(f"Permission denied creating {log_path.parent}, logs may fail")
-
-      formatter = logging.Formatter(
-        fmt="%(asctime)s | %(funcName)s.%(lineno)d | %(levelname)s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
-      )
-
-      # - File output
+    log_path = pathlib.Path( cls._logfile )
+    
+    # - Create log directory
+    if not log_path.parent.exists():
       try:
-        fh = logging.FileHandler(
-          cls._logfile,
-          mode="a",
-          encoding="utf-8"
-        )
-        # - file debugger is always at the DEBUG level
-        fh.setLevel( logging.DEBUG )
+        os.makedirs(log_path.parent, exist_ok=True)
+      except PermissionError:
+        print(f"Permission denied creating {log_path.parent}, logs may fail")
 
-      except Exception as e:
-        print(f"Warning: Cannot create file handler: {e}")
-        fh = None
+    formatter = logging.Formatter(
+      fmt="%(asctime)s | %(name)s | %(funcName)s.%(lineno)d | %(levelname)s | %(message)s",
+      datefmt="%Y-%m-%d %H:%M:%S"
+    )
 
-      if fh:
-        fh.setFormatter(formatter)
-        logger.addHandler(fh)
+    # - File output
+    try:
+      fh = logging.FileHandler(
+        cls._logfile,
+        mode="a",
+        encoding="utf-8"
+      )
+      # - file debugger is always at the DEBUG level
+      fh.setLevel( logging.DEBUG )
 
-      # - CLI output
-      ch = logging.StreamHandler( sys.stdout )
-      ch.setLevel( cls._console_level )
-      ch.setFormatter( formatter )
-      logger.addHandler(ch)
+    except Exception as e:
+      print(f"Warning: Cannot create file handler: {e}")
+      fh = None
 
+    if fh:
+      fh.setFormatter(formatter)
+      logger.addHandler(fh)
+
+    # - CLI output
+    ch = logging.StreamHandler( sys.stdout )
+    ch.setLevel( cls._console_level )
+    ch.setFormatter( formatter )
+    logger.addHandler(ch)
+
+    # - Store in our registry
     cls._loggers[ name_ ] = logger
 
     return logger
 # ==============================================================================
-
-
