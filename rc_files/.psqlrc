@@ -1,7 +1,0 @@
-\set PROMPT1 '%M:%> %n@%/%R%#%x '
-\set ON_ERROR_ROLLBACK interactive
-\set COMP_KEYWORD_CASE upper
-\set HISTFILE ~/.psql/history- :DBNAME
-q\setenv PSPG_THEME 0
-\pset pager always
-\pset null '(null)'

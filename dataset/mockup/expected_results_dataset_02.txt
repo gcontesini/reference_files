@@ -1,9 +1,0 @@
-Summary for Dataset 2
-
-Total Incorrect Type: 8
-Total NaN: 0 (pandas will read empty cells as NaN)
-Total Null/None: 0
-Total Empty String: 6 (when read as strings before type conversion)
-Total Value Out of Range: 2
-Total Incorrect DateTime Format: 2
-Total DateTime Out of Range: 1

@@ -1,0 +1,10 @@
+version: "3"
+services:
+  app:
+    image: python:3
+    working_dir: "/home/x1_references/reference_files/docker/docker-python"
+    volumes:
+      - .:/home/$USER/x9_docker_playground
+    command: ["python3", "main.py"]
+    deploy:
+      replicas: 3
