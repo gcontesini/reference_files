@@ -2,94 +2,141 @@
 
 # Variables
 today := `date +'%e-%b-%y_%H-%M-%S'`
-varlog := "var/log/"
 version := "0.0.1"
 venv_dir := "venv"
+pypy_venv_dir := "pypy-venv"
 requirements := "requirements.txt"
-results_dir := "results"
-backup_results_dir := "var/backup_results"
-backup_project_dir := "var/project"
-main_file_1 := "auto_roi_criteria_v_dataset.py"
-main_file_2 := "auto_roi_criteria_v_window_size.py"
+results_dir := "results/simulation/"
+backup_results_dir := "var/backup/results/"
+varlog := "var/log/"
+varprofiler := "var/profiler/"
+lib := "lib/"
+backup_project_dir := "var/backup/project"
+main_file := "main.py"
+license := "https://raw.githubusercontent.com/gcontesini/reference_files/refs/heads/main/LICENSE"
+readme := "https://raw.githubusercontent.com/gcontesini/reference_files/refs/heads/main/README.md"
+gitignore := "https://raw.githubusercontent.com/gcontesini/reference_files/refs/heads/main/.gitignore"
 
 sep := "\n<----------------------------------------------------------------->\n"
-
-# TO DO
-# Show operating system
-# show-os:
-# 	@echo "Operating System: {{os}}"
-
-# Reinstall project from scratch
-restart-project:
-	@echo " {{sep}} Reinstalling Project...💿 {{sep}} "
-	just clean
-	@rm -rf {{venv_dir}}
-	just install
-	@echo " {{sep}} Reinstalled Project ✅ {{sep}} "
-
-# Clean up results directory
-clean:
-	@echo " {{sep}} Cleaning {{results_dir}} directory...💿 {{sep}} "
-	@if [ -d "{{results_dir}}" ]; then rm -rf {{results_dir}}/*; fi
-	@echo " {{sep}} Clean Project ✅ {{sep}} "
-
+# ==============================================================================
+# todo: 
+# - change behaviour based on os: @echo "Operating System: {{os}}"
+# - install justfile itself : write a sheel script that install justfile
+# - install docker
+# - create docker image
+# - run docker container
+# - install pypy3-venv : create a standard pypy3-environment
+# - run pypy3
+# - fix the bug in log level
+# ==============================================================================
+# Show all the setup scripts in justfile
+help:
+	@just --list
+# ==============================================================================
 # Install Python dependencies
 install:
 	@echo " {{sep}} Installing Python dependencies...💿 {{sep}} "
-	@mkdir -p {{results_dir}}
-	@python3 -m venv {{venv_dir}}
+	@just start-blank-project
 	@{{venv_dir}}/bin/pip install --upgrade pip
 	@{{venv_dir}}/bin/pip install -r {{requirements}}
 	@echo " {{sep}} Python dependencies installed  ✅ {{sep}}"
-
+# ==============================================================================
+# Start a blank project from scratch
+start-blank-project:
+	@echo " {{sep}} Starting Project Project...💿 {{sep}} "
+	@python3 -m venv {{venv_dir}}
+	@{{venv_dir}}/bin/pip install --upgrade pip
+	@mkdir -p {{results_dir}}
+	@mkdir -p {{varlog}}
+	@mkdir -p {{varprofiler}}
+	@mkdir -p {{lib}}
+	@touch {{lib}}/__init__.py
+	@touch {{main_file}}
+	@curl -O {{readme}}
+	@curl -O {{gitignore}}
+	@curl -O {{license}}
+	@just add scalene
+	@just add numpy
+	@echo " {{sep}} New Project Ready ✅ {{sep}} "
+# ==============================================================================
+# Reinstall project from scratch
+restart-project:
+	@echo " {{sep}} Reinstalling Project...💿 {{sep}} "
+	@just clean
+	@rm -rf "{{venv_dir}}"
+	@just install
+	@echo " {{sep}} Reinstalled Project ✅ {{sep}} "
+# ==============================================================================
+# Clean up data simulation directory
+clean-data:
+	@echo " {{sep}} Cleaning {{results_dir}} directory...💿 {{sep}} "
+	@if [ -d "{{results_dir}}" ]; then rm -rf {{results_dir}}/*; fi
+	@echo " {{sep}} Clean Project ✅ {{sep}} "
+# ==============================================================================
+# Clean up /var/log directory
+clean-log:
+	@echo " {{sep}} Cleaning {{results_dir}} directory...💿 {{sep}} "
+	@if [ -d "{{varlog}}" ]; then rm -rf {{varlog}}/*; fi
+	@echo " {{sep}} Clean Project ✅ {{sep}} "
+# ==============================================================================
 # Add Python module
 add module:
 	@echo " {{sep}} Adding module...💿 {{sep}} "
 	@{{venv_dir}}/bin/pip install {{module}}
 	@echo " {{sep}} {{module}} added to the project ✅ {{sep}}"
 	just update-requirements
-
+# ==============================================================================
 # Update Python dependencies
 update-requirements:
 	@echo " {{sep}} Updating Python dependencies...💿 {{sep}} "
 	@{{venv_dir}}/bin/pip freeze > {{requirements}}
 	@echo " {{sep}} Python dependencies updated ✅ {{sep}}"
-
-# Show all the setup scripts in justfile
-help:
-	@just --list
-
-# Run analysis over datasets
+# ==============================================================================
+# Run module in local python3
 run module:
 	@echo " {{sep}} Running  {{module}}...💿 {{sep}} ";
-	@(time {{venv_dir}}/bin/python {{module}}) 2>&1 | tee "{{varlog}}{{module}}_{{today}}.log";
-	@echo " {{sep}} Finished ...💿 {{sep}} ";
-
-# Run with PyPy
-
-# pypy:
-# 	@echo " {{sep}} Running Python script with PyPy...💿 {{sep}} "
-# 	@time {{venv_dir}}/bin/python -m pypy3 {{main_file_1}}
-# 	@echo "\n"
-# 	@time {{venv_dir}}/bin/python -m pypy3 {{main_file_2}}
-# 	@echo " {{sep}} Python script run with PyPy ✅ {{sep}} "
-
+	@time {{venv_dir}}/bin/python {{module}}
+	@echo " {{sep}} Finished ...✅ {{sep}} ";
+# ==============================================================================
+# There is a bug on log level here
+# Run main scripts
+# debug module log_level="":
+# 	@echo " {{sep}} Running  {{module}}...💿 {{sep}} ";
+# 	@LOG_FLAG=""; \
+# 	if [ -n "{{log_level}}" ]; then \
+# 		LOG_FLAG="--log {{log_level}}"; fi; \
+# 		(time {{venv_dir}}/bin/python {{module}} ${LOG_FLAG});
+# 	@echo " {{sep}} Finished ...✅ {{sep}} ";
+# ==============================================================================
+# start the software's gui
+start:
+	{{venv_dir}}/bin/python3 gui.py
+# ==============================================================================
+# run module in profiler mode
+profiler module:
+	@echo " {{sep}} Running  {{module}}...💿 {{sep}} ";
+	@just add scalene
+	@time {{venv_dir}}/bin/python3 -m scalene {{module}}
+	@echo " {{sep}} Finished ...✅ {{sep}} ";
+# ==============================================================================
 # Delete the project and backup results
 delete-project:
 	@echo " {{sep}} Deleting Project...💿 {{sep}} "
+	@just backup-project
+	@just backup-results
 	@rm -rf {{venv_dir}}
-	just backup-results
 	@echo " {{sep}} Project deleted ✅ {{sep}} "
-
+# ==============================================================================
 # Backup results into a zip file
 backup-project:
 	@echo " {{sep}} Backing up project...💿 {{sep}} "
 	@mkdir -p {{backup_project_dir}}
-	@zip -r project_backup_$(whoami)_$(date +%Y-%m-%d).zip . -x "{{venv_dir}}/*" "{{results_dir}}/*" ".git/*" "*__pycache__/*" ".vscode/*"
+	@zip -r project_backup_$(whoami)_$(date +%Y-%m-%d).zip . -x "{{venv_dir}}/*" "{{pypy_venv_dir}}/*" ".git/*" "*__pycache__/*" ".vscode/*" "var/*"
 	@mv project_backup_$(whoami)_$(date +%Y-%m-%d).zip {{backup_project_dir}}
+	@tree -a -I 'venv|.git|.vscode|__pycache__|pypy-env|var/|results/simulation/' > project_structure.txt
 	@echo " {{sep}} Backed up complete ✅ {{sep}} "
 	just backup-results
-
+# ==============================================================================
 # Backup results into a zip file
 backup-results:
 	@echo " {{sep}} Backing up results...💿 {{sep}} "
@@ -97,7 +144,16 @@ backup-results:
 	@zip -r results_backup_$(whoami)_$(date +%Y-%m-%d).zip {{results_dir}}
 	@mv results_backup_$(whoami)_$(date +%Y-%m-%d).zip {{backup_results_dir}}
 	@echo " {{sep}} Backed up complete ✅ {{sep}} "
-
-# install pypy3-venv
-
-# run pypy3
+# ==============================================================================
+# Run with PyPy
+# pypy:
+# ==============================================================================
+# install-docker
+# install-docker
+# ==============================================================================
+# create-docker-image
+# create-docker-image
+# ==============================================================================
+# run-docker-container
+# run-docker-container
+# ==============================================================================

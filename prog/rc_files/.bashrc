@@ -15,6 +15,28 @@ alias grep='grep --color=auto'
 alias code='code -n'
 alias open='gnome-open'
 alias df='df -TH'
+
+function references () {
+  echo "reference_bash"
+  echo "reference_colors"
+  echo "reference_colors_PS1"
+  echo "reference_error"
+  echo "reference_hardware"
+  echo "reference_software"
+  echo "reference_ssh"
+  echo "reference_vim"
+  echo "reference_screen"
+  echo "reference_keyboard"
+  echo "reference_git"
+  echo "reference_network"
+  echo "reference_machine_ip"
+  echo "reference_network_speed"
+}
+
+function reference_bash () {
+  alias -p 
+}
+
 # ============================================================================== Custom CMD
 alias size='echo $(pwd) && du -Sch $(pwd) | tail -n 1'
 alias ducks='du -cksh * | sort -rh '
@@ -46,6 +68,7 @@ alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
 alias gittree="git log --all --graph --decorate --pretty=format:'%C(bold blue)%h%C(reset) -%C(bold green)[%cr]%C(reset) - %C(bold red)<%an>%C(reset) -%C(bold yellow)%d%C(reset) %C(bold white)%s%C(reset)'"
 alias gitdiff="git diff --color-words='[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+'"
 alias gitbranches="git log --all --graph --decorate=short --pretty=format:'%C(bold blue)%h%C(reset) %C(bold yellow)%d%C(reset) %C(white)%s%C(reset)'"
+
 function reference_git(){
   echo 'Name: git config --global user.name "Contesini"'
   echo 'Email: git config --global user.email "4V4f7@example.com"'
@@ -56,6 +79,7 @@ function reference_git(){
   echo 'Delete Lastest Commit (Delete Changes): git reset --hard HEAD~1'
   echo 'Delete Lastest Commit (From Remote): git reset --hard HEAD~1 && git push origin <branch_name> --force'
 }
+
 function parse_git_branch() {
   echo "\e[1;36m"`
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'`
@@ -68,7 +92,7 @@ alias ssh_krueger="ssh contesini@134.117.64.164"
 alias unmount_krueger="umount ~/x3_kueger/"
 alias mount_krueger="sshfs contesini@134.117.64.164:/home/contesini ~/x3_kueger/"
 
-function ssh_reference() {
+function reference_ssh() {
 
   echo "jupyter notebook --port=8888"
   echo "ssh -N -L localhost:1234:localhost:8888 contesini@134.117.64.164"
@@ -82,6 +106,19 @@ function fetch_data_krueger () {
   local local_destination="$2"
   rsync -avhP -e ssh contesini@134.117.64.164:"$remote_source" "$local_destination"
 }
+
+function open_mrhyde () {
+  brave-browser --new-window 134.117.64.204:4080
+  echo "login: contesini"
+  echo "pwd: brbr2025"
+}
+
+function reference_machine_ip () {
+  echo "Moby Dick: zeiss@134.117.64.169"
+  echo "Krueger: contesini@134.117.64.164"
+  echo "Mr Hyde: 134.117.64.204:4080"
+}
+
 function reference_screen(){
 
   echo -e "\t screen -S session_id"
@@ -109,32 +146,34 @@ function reference_screen(){
   echo -e "\t w : List all open windows in the current screen session"
   
 }
-# ============================================================================== Reference cmds
+# ============================================================================== Reference hardware
+function reference_hardware(){
+  
+  echo "List all connect hard dev"
+  echo "sudo fdisk -l"
 
-# List all connect hard dev
-# sudo fdisk -l
+  echo write iso into pendrive
+  echo sudo dd if=Downloads/linuxmint-21.3-cinnamon-64bit.iso of=/dev/sdc bs=1M status=progress
 
-# write iso into pendrive
-# sudo dd if=Downloads/linuxmint-21.3-cinnamon-64bit.iso of=/dev/sdc bs=1M status=progress
+  echo "alias reverse-dependence='apt-cache rdepends pkgname'"
+  echo "create symbolic links 'ln -s ~/.opt/QuPath-v0.5.1-Linux/QuPath/bin/QuPath ~/.local/bin/qupath'"
 
-# alias reverse-dependence='apt-cache rdepends pkgname'
-# create symbolic links "ln -s ~/.opt/QuPath-v0.5.1-Linux/QuPath/bin/QuPath ~/.local/bin/qupath"
+  echo "Format flash pen-drive"
+  echo "FAT 32"
+  echo "sudo mkfs.vfat /dev/sdc1"
+  echo "ext4"
+  echo "sudo mkfs.ext4 /dev/sdc1"
 
-# Format flash pen-drive
-# FAT 32
-# sudo mkfs.vfat /dev/sdc1
-# ext4
-# sudo mkfs.ext4 /dev/sdc1
+  echo "Wipe flash pen-drive "
+  echo "sudo umount /dev/sdc1"
+  echo "sudo dd if=/dev/zero of=/dev/sdc1 bs=1M status=progress"
 
-# Wipe flash pen-drive 
-# sudo umount /dev/sdc1
-# sudo dd if=/dev/zero of=/dev/sdc1 bs=1M status=progress
+  echo "Delete CLI history"
+  echo "printf "\e[3J""
 
-# Delete CLI history
-# printf "\e[3J"
-
-# Force loading pendrive
-# sudo mount -o uid=$(id -u),gid=$(id -g) /dev/sdc1 /media/usbdrive
+  echo "Force loading pendrive"
+  echo "sudo mount -o uid=$(id -u),gid=$(id -g) /dev/sdc1 /media/usbdrive"
+}
 # ============================================================================== VIM
 
 reference_vim () {
@@ -161,22 +200,6 @@ reference_vim () {
   '
 }
 # ============================================================================== BEHAVIOR
-# ============================================================================== PS-Pager
-export PSQL_PAGER="pspg"
-alias psql="PAGER= pspg psql"
-# export PAGER="pspg"
-export PSQL_EDITOR="/usr/bin/code"
-# ============================================================================== Bash
-export HISTCONTROL=ignoredups
-export HISTCONTROL=ignoreboth
-export EDITOR=code
-export BROWSER="brave '%s &'"
-export HISTIGNORE="??:!!:clear:exit:logout:l:ls:ll:ls:bash"
-export HISTTIMEFORMAT="%F %T "
-shopt -s checkwinsize
-if [ -f /etc/bash_completion ]; then
-  . /etc/bash_completion
-fi
 # ============================================================================== Python venv
 # whereis python | tr ' ' '\n' | grep ^/ | sort
 
@@ -250,7 +273,7 @@ function install_me () {
   #   BlueJ
 
 }
-# ============================================================================== Count files by type
+# ============================================================================== Office
 function list_functions () {
   # Check if .bashrc exists
   if [ ! -f ~/.bashrc ]; then
@@ -261,6 +284,7 @@ function list_functions () {
   # List all functions in .bashrc
   grep -E '^[[:space:]]*([[:alnum:]_]+[[:space:]]*\(\)|function[[:space:]]+[[:alnum:]_]+)' ~/.bashrc | awk '{print $1}'
 }
+
 function count_files_by_type () {
   for dir in $(find . -type d); do
     echo -e "$dir - $(find "$dir" -type f -name "*.$1" | wc -l) "
@@ -327,6 +351,7 @@ function tarfile(){
   clear
   echo "Backup done"
 }
+
 function blue_screen() {
   # Save current terminal settings
   tput civis        # Hide cursor
@@ -342,6 +367,24 @@ function blue_screen() {
   tput clear        # Clear screen again
   tput cnorm        # Show cursor
 }
+
+function load_office () {
+
+  brave-browser --new-window $(cat ~/x5_work/chat_bookmarks.txt) &
+
+  brave-browser --new-window  $(cat ~/x5_work/emails_bookmarks.txt) &
+
+  brave-browser --new-window $(cat ~/x5_work/calendar_bookmarks.txt) &
+
+  brave-browser --new-window https://claude.ai/new \ https://www.perplexity.ai/  &
+
+  exit
+
+}
+
+# function reference_office () {
+
+# }
 
 # ============================================================================== References
 function reference_colors_PS1 () {
@@ -733,4 +776,20 @@ export PATH="$PATH:/home/contesini/.lmstudio/bin"
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# ============================================================================== psql
+export PSQL_PAGER="pspg"
+alias psql="PAGER= pspg psql"
+# export PAGER="pspg"
+export PSQL_EDITOR="/usr/bin/code"
+# ============================================================================== Bash
+export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoreboth
+export EDITOR=code
+export BROWSER="brave '%s &'"
+export HISTIGNORE="??:!!:clear:exit:logout:l:ls:ll:ls:bash"
+export HISTTIMEFORMAT="%F %T "
+shopt -s checkwinsize
+if [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
 # ==============================================================================  END

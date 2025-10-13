@@ -1,0 +1,116 @@
+# Justfile
+
+# Variables
+version := "0.0.1"
+compiler := "javac"
+launcher := "java"
+jar := "jar"
+
+meta_folder := "META-INF/"
+lib_folder := "lib/"
+output_folder := "result_images/"
+
+imagej := "ij.jar"
+
+results_dir := "result_images/"
+backup_results_dir := "backup/results/"
+backup_project_dir := "backup/project/"
+
+main_java_name := "GaussianFilter"
+main_java_file := "GaussianFilter.java"
+main_java_exec := "GaussianFilter.class"
+main_jar_file :=  "GaussianFilter.jar"
+manifest_file :=  "MANIFEST.MF"
+
+default-kernel := "2.0"
+
+
+sep := "\n<----------------------------------------------------------------->\n"
+
+# Default recipe
+
+# Just Help
+help:
+	just --list
+
+# Reinstall project from scratch
+restart-project:
+	@echo " {{sep}} Reinstalling Project...💿 {{sep}} "
+	just clean
+	@rm -rf {{results_dir}}
+	@echo " {{sep}} Reinstalled Project ✅ {{sep}} "
+
+# Clean up results directory
+clean:
+	@echo " {{sep}} Cleaning {{results_dir}} directory...💿 {{sep}} "
+	@if [ -d "{{results_dir}}" ]; then rm -rf {{results_dir}}/*; fi
+	@echo " {{sep}} Clean Project ✅ {{sep}} "
+
+# Install Java Libraries
+install:
+	@echo " {{sep}} Installing Java Libraries...💿 {{sep}} "
+	@mkdir -p {{results_dir}}
+	@curl -O {{imageJ_url}}
+	@mv {{imagej}} {{lib_folder}}
+	@echo " {{sep}} Java Libraries dependencies installed  ✅ {{sep}}"
+
+# Compile main class 
+compile:
+	@echo " {{sep}} Compiling Java File...💿 {{sep}} "
+	@mkdir -p bin
+	{{compiler}} -d bin *.java
+	@echo " {{sep}} Java File Compiled ✅ {{sep}} "
+
+# Create Manifest for jar file
+create-manifest:
+	@mkdir -p {{meta_folder}}
+	@echo " {{sep}} Creating {{manifest_file}}...💿 {{sep}} "
+	@echo "Main-Class: {{main_java_name}}" > {{meta_folder}}{{manifest_file}}
+	@echo "Class-Path: lib/ij.jar" >> {{meta_folder}}{{manifest_file}}
+	@echo " {{sep}} {{manifest_file}} Created ✅ {{sep}} "
+
+# Create the jar file
+create-jarfile:
+	just compile
+	just create-manifest
+	@echo " {{sep}} Creating Jar...💿 {{sep}} "
+	@{{jar}} cfm {{main_jar_file}} {{meta_folder}}{{manifest_file}} -C bin .
+	@echo " {{sep}} Jar Created ✅ {{sep}} "
+
+# Run Java binary
+run-bin:
+	just compile
+	@echo " {{sep}} Running {{main_java_file}}...💿 {{sep}} "
+	@time	{{launcher}} {{main_java_name}}
+	@echo " {{sep}} End of execution ✅ {{sep}} "
+
+# Run jar files
+run-jar:
+	just create-jarfile
+	@echo " {{sep}} Running {{main_jar_file}}...💿 {{sep}} "
+	@time java -jar {{main_jar_file}}
+	@echo " {{sep}} End of {{main_jar_file}} ✅ {{sep}} "
+
+# Delete the project and backup results
+delete-project:
+	@echo " {{sep}} Deleting Project...💿 {{sep}} "
+	just backup-results
+	@rm -rf {{results_dir}}
+	@echo " {{sep}} Project deleted ✅ {{sep}} "
+
+# Backup results into a zip file
+backup-project:
+	@echo " {{sep}} Backing up project...💿 {{sep}} "
+	@mkdir -p {{backup_project_dir}}
+	@zip -r project_backup_$(whoami)_$(date +%Y-%m-%d).zip . -x "{{results_dir}}/*" ".git/*" ".vscode/*" "ij.jar"
+	@mv project_backup_$(whoami)_$(date +%Y-%m-%d).zip {{backup_project_dir}}
+	@echo " {{sep}} Backed up complete ✅ {{sep}} "
+	just backup-results
+
+# Backup results into a zip file
+backup-results:
+	@echo " {{sep}} Backing up results...💿 {{sep}} "
+	@mkdir -p {{backup_results_dir}}
+	@zip -r results_backup_$(whoami)_$(date +%Y-%m-%d).zip {{results_dir}}
+	@mv results_backup_$(whoami)_$(date +%Y-%m-%d).zip {{backup_results_dir}}
+	@echo " {{sep}} Backed up complete ✅ {{sep}} "

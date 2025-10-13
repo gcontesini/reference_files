@@ -1,18 +1,18 @@
-# # Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL files
 # __pycache__/
 # *.pyc
 # *$py.class
 
-# # C extensions
+# C extensions
 # *.so
 
-# # Distribution / packaging
+# Distribution / packaging
 # dist/
 # build/
 # *.egg-info/
 # *.egg
 
-# # Unit test / coverage reports
+# Unit test / coverage reports
 # htmlcov/
 # .tox/
 # .coverage
@@ -22,10 +22,10 @@
 # coverage.xml
 # *.cover
 
-# # Jupyter Notebook checkpoints
+# Jupyter Notebook checkpoints
 # .ipynb_checkpoints
 
-# # Editor directories and project files
+# Editor directories and project files
 # .vscode/
 # .idea/
 # *.sublime-project
@@ -33,22 +33,36 @@
 # *.spyderproject
 # *.spyproject
 
- # Environment settings
+# Environment settings
 .env
 venv/ 
 .venv/
+pypy-env/
+pypy-venv/
 
-# # Ignore directories for old builds or logs
+# Ignore directories for old builds or logs
 # logs/
 # *.log
+# var/*
 
-# # Files
+# Results and Backups
+# backup/
+# *.zip
+
+# Files
 # *.pdf
+# *.csv
+# *.yaml
+# *.json
 
-# # Images
+# Images
 # *.czi
 # *.tif
+# *.svg
+# *.png
 # *.tiffile
-
-
+# *.tiff
+# *.jpg
+# *.vsi
+# *.nd2
 
