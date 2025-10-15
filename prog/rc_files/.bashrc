@@ -74,6 +74,8 @@ function reference_git(){
   echo 'Email: git config --global user.email "4V4f7@example.com"'
   echo 'Token: git config --credential.helper store'
   echo 'List: git config --list'
+  echo 'Add Remote Repo: git remote add "origin" <url>'
+  echo 'Rename Branch: git branch -m <new_name>'
   echo 'Reset to Latest Commit: git reset --hard HEAD'
   echo 'Delete Lastest Commit (Keep Changes): git reset --soft HEAD~1'
   echo 'Delete Lastest Commit (Delete Changes): git reset --hard HEAD~1'

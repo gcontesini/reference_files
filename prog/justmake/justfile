@@ -57,6 +57,7 @@ start-blank-project:
 	@curl -O {{license}}
 	@just add scalene
 	@just add numpy
+	@just add GitPython
 	@echo " {{sep}} New Project Ready ✅ {{sep}} "
 # ==============================================================================
 # Reinstall project from scratch
@@ -84,6 +85,13 @@ add module:
 	@echo " {{sep}} Adding module...💿 {{sep}} "
 	@{{venv_dir}}/bin/pip install {{module}}
 	@echo " {{sep}} {{module}} added to the project ✅ {{sep}}"
+	just update-requirements
+# ==============================================================================
+# Remove Python module
+remove module:
+	@echo " {{sep}} Removing module...💿 {{sep}} "
+	@{{venv_dir}}/bin/pip uninstall {{module}}
+	@echo " {{sep}} {{module}} Removed from the project ✅ {{sep}}"
 	just update-requirements
 # ==============================================================================
 # Update Python dependencies
